@@ -15,7 +15,7 @@ function AddTripForm() {
         fetch('https://restcountries.com/v3.1/all').then((response) => {
             if (response.ok) return response.json()
         }).then((data) => {
-            const countryNames = data.map((country: { name: { common: string } }) => country.name.common);
+            const countryNames = data.map((country: { name: { common: string } }) => country.name.common).sort();
             setCountries(countryNames);
         }).catch((error) => console.log(error));
     }, [] )
