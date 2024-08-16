@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSquid } from '@squidcloud/react';
 import './AskAI.css';
 import LoadingIndicator from './LoadingIndicator';
 
 function AskAI() {
-  const [text, setText] = useState('');
-  const [result, setResult] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [text, setText] = useState<string>('');
+  const [result, setResult] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
   const squid = useSquid();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const askPressed = async () => {
     if (!text) return;
@@ -21,6 +22,13 @@ function AskAI() {
   const closeResult = () => {
     setResult('');
   };
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [result]);
 
   return (
     <div className="container">
@@ -37,7 +45,7 @@ function AskAI() {
       )}
       {result && (
         <div className="result-container">
-          <textarea value={result} rows={4} />
+          <textarea ref={textareaRef} value={result} rows={4} readOnly />
           <button onClick={closeResult} className="close-button"></button>
         </div>
       )}
