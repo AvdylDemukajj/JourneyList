@@ -3,7 +3,7 @@ import AddTrip from './components/AddTripForm';
 import TripList from './components/TripList';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { Trip } from './types';
-
+import AskAI from './components/AskAI';
 
 function App() {
   const collection = useCollection<Trip>('trips');
@@ -40,6 +40,7 @@ function App() {
 
   return (
     <div className="card">
+      <AskAI />
       <AddTrip />
       <TripList
         trips={trips.data.map((trip) => trip.data)}
