@@ -1,10 +1,11 @@
 import './App.css';
-import AddTripForm from './components/AddTripForm';
+import AddTrip from './components/AddTripForm';
 import TripList from './components/TripList';
 import { useCollection, useQuery } from '@squidcloud/react';
 import { Trip } from './types';
-function App() {
 
+
+function App() {
   const collection = useCollection<Trip>('trips');
   const trips = useQuery(collection.query());
 
@@ -38,13 +39,15 @@ function App() {
   };
 
   return (
-    <>
-      <AddTripForm/>
-      <TripList  trips={trips.data.map((trip) => trip.data)}
+    <div className="card">
+      <AddTrip />
+      <TripList
+        trips={trips.data.map((trip) => trip.data)}
         onDelete={onDelete}
         onAddNote={onAddNote}
-        onDeleteNote={onDeleteNote}/>
-    </>
+        onDeleteNote={onDeleteNote}
+      />
+    </div>
   );
 }
 
